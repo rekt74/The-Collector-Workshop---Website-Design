@@ -1,12 +1,11 @@
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('nav');
-const dropdown = document.querySelector('.dropdown');
-const dropdownButton = dropdown.querySelector('button');
-function closeDropdown() { dropdown.classList.remove('open'); dropdownButton.setAttribute('aria-expanded', 'false'); }
+const dropdowns = [...document.querySelectorAll('.dropdown')];
+function closeDropdown() { dropdowns.forEach(item => { item.classList.remove('open'); item.querySelector('button').setAttribute('aria-expanded', 'false'); }); }
 function closeMenu() { nav.classList.remove('mobile-open'); menuButton.setAttribute('aria-expanded', 'false'); closeDropdown(); }
 menuButton.addEventListener('click', () => { const expanded = menuButton.getAttribute('aria-expanded') !== 'true'; menuButton.setAttribute('aria-expanded', String(expanded)); nav.classList.toggle('mobile-open', expanded); });
-dropdownButton.addEventListener('click', () => { const expanded = dropdownButton.getAttribute('aria-expanded') !== 'true'; dropdownButton.setAttribute('aria-expanded', String(expanded)); dropdown.classList.toggle('open', expanded); });
-document.addEventListener('click', e => { if (!dropdown.contains(e.target)) closeDropdown(); });
+dropdowns.forEach(item => item.querySelector('button').addEventListener('click', () => { const button = item.querySelector('button'); const expanded = button.getAttribute('aria-expanded') !== 'true'; closeDropdown(); button.setAttribute('aria-expanded', String(expanded)); item.classList.toggle('open', expanded); }));
+document.addEventListener('click', e => { if (!dropdowns.some(item => item.contains(e.target))) closeDropdown(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 const dialog = document.querySelector('#video-dialog');
@@ -66,6 +65,10 @@ document.querySelector('.close-dialog').addEventListener('click', closeVideo);
 document.querySelector('#dialog-enquire').addEventListener('click', closeVideo);
 dialog.addEventListener('click', e => { if(e.target === dialog) { const r=dialog.getBoundingClientRect(); if(e.clientX<r.left || e.clientX>r.right || e.clientY<r.top || e.clientY>r.bottom) closeVideo(); } });
 document.querySelector('#year').textContent = new Date().getFullYear();
-document.querySelector('form').addEventListener('submit', e => { e.preventDefault(); document.querySelector('#form-status').textContent = 'Your enquiry has not been sent. This design preview needs an enquiry delivery service connected before launch.'; });
-const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if(entry.isIntersecting) { document.querySelectorAll('nav > a').forEach(a => a.classList.toggle('active', a.hash === '#' + entry.target.id)); } }); }, {rootMargin:'-20% 0px -60% 0px'});
-document.querySelectorAll('main > section[id]').forEach(section => observer.observe(section));
+document.querySelector('form')?.addEventListener('submit', e => { e.preventDefault(); document.querySelector('#form-status').textContent = 'Your enquiry has not been sent. This design preview needs an enquiry delivery service connected before launch.'; });
+const currentPage = location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('nav > a').forEach(link => {
+  const active = new URL(link.href).pathname.split('/').pop() === currentPage;
+  link.classList.toggle('active', active);
+  if(active) link.setAttribute('aria-current', 'page');
+});

@@ -48,3 +48,13 @@ The actual website could not be crawled because it returned an access-denied res
 - No awards, restoration statistics, testimonials or customer project history are claimed.
 - Connect a secure enquiry backend or form provider and add the applicable privacy notice. The current form validates input but does not send or store submissions.
 - The site uses system fonts, with no external font dependency.
+
+## Multipage design refinement
+
+Shared typography uses 16px body copy, a responsive 30–44px section-heading scale, and a 24px card-heading scale. The homepage is shorter: repeated storytelling, promise, and FAQ sections were removed, while dedicated pages carry the deeper content.
+
+Pages: Home, Our Story, Our Crew, Our Approach, Services, Restorations, Gallery, Contact, Full Restoration, Mechanical Care, Paint & Coachwork, Interior Craftsmanship, and Concierge Services. Service-detail pages share one layout. The crew page describes craft disciplines; no invented staff biographies or portraits are used. All imagery remains concept imagery until the client's gallery assets are supplied.
+
+The homepage and contact page embed a Google Map for Dubai Investments Park. DIP, Dubai, UAE is a client-authorized temporary location, not a verified workshop pin. The page states that the general area is shown. Replace the map and address together after confirmation. The map needs access to Google Maps in the viewer's browser.
+
+The current site's additional full-page screenshots were not received in the chat. Final content matching, any further page types, real team details, concierge service scope, and gallery asset selection remain pending those references.
