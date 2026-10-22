@@ -58,3 +58,11 @@ Pages: Home, Our Story, Our Crew, Our Approach, Services, Restorations, Gallery,
 The homepage and contact page embed a Google Map for Dubai Investments Park. DIP, Dubai, UAE is a client-authorized temporary location, not a verified workshop pin. The page states that the general area is shown. Replace the map and address together after confirmation. The map needs access to Google Maps in the viewer's browser.
 
 The current site's additional full-page screenshots were not received in the chat. Final content matching, any further page types, real team details, concierge service scope, and gallery asset selection remain pending those references.
+
+## Layout polish
+
+The stylesheet is consolidated into one readable system rather than stacked overrides. All sections share a centered 1280px maximum content grid, responsive gutters, and a consistent spacing scale. Desktop navigation switches to the mobile menu before links crowd; the menu resets when returning to desktop. The current page is indicated inside dropdown navigation too.
+
+Cards use fixed image proportions and equal-height bodies, with links aligned at the bottom. Video play circles are centered within each image independently of captions. SVG arrows and line icons avoid platform-dependent missing glyphs. Body paragraphs remain 16px; small metadata and navigation have their own explicit scales. Dark-page body text and input contrast were also corrected.
+
+Validation covers all 13 pages at 320, 360, 390, 700, 768, 1000, 1024, 1440, and 1920px; local links, clipped content, horizontal overflow, header collisions, player-control centers, menu behavior, form validation, and video cleanup. YouTube and Maps requests are isolated during layout checks; these checks do not certify third-party availability or video playback permissions.

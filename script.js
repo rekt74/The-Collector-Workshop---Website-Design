@@ -49,7 +49,7 @@ document.querySelectorAll('.video-trigger').forEach(button => button.addEventLis
       const media = getEmbedURL(config.url);
       if (media.embed) {
         const frame = document.createElement('iframe'); frame.src = media.embed; frame.title = config.title; frame.allow = 'autoplay; fullscreen; picture-in-picture'; frame.allowFullscreen = true; frame.referrerPolicy = 'strict-origin-when-cross-origin'; stage.append(frame);
-        const directLink = document.createElement('a'); directLink.href = config.url; directLink.target = '_blank'; directLink.rel = 'noopener noreferrer'; directLink.className = 'text-link'; directLink.textContent = 'Open film in a new tab ↗'; message.append(directLink);
+        const directLink = document.createElement('a'); directLink.href = config.url; directLink.target = '_blank'; directLink.rel = 'noopener noreferrer'; directLink.className = 'text-link'; directLink.textContent = 'Open film in a new tab'; message.append(directLink);
       } else {
         const video = document.createElement('video'); video.controls = true; video.playsInline = true; video.poster = config.poster; video.src = media.source; video.autoplay = true; stage.append(video);
         video.addEventListener('error', () => { message.textContent = 'This film is temporarily unavailable. Please try again later.'; });
@@ -67,8 +67,15 @@ dialog.addEventListener('click', e => { if(e.target === dialog) { const r=dialog
 document.querySelector('#year').textContent = new Date().getFullYear();
 document.querySelector('form')?.addEventListener('submit', e => { e.preventDefault(); document.querySelector('#form-status').textContent = 'Your enquiry has not been sent. This design preview needs an enquiry delivery service connected before launch.'; });
 const currentPage = location.pathname.split('/').pop() || 'index.html';
-document.querySelectorAll('nav > a').forEach(link => {
+document.querySelectorAll('nav a').forEach(link => {
   const active = new URL(link.href).pathname.split('/').pop() === currentPage;
   link.classList.toggle('active', active);
-  if(active) link.setAttribute('aria-current', 'page');
+  if (active) {
+    link.setAttribute('aria-current', 'page');
+    link.closest('.dropdown')?.classList.add('active');
+  } else link.removeAttribute('aria-current');
+});
+// Clear the mobile menu when returning to the desktop layout.
+matchMedia('(min-width: 1001px)').addEventListener('change', event => {
+  if (event.matches) closeMenu();
 });
