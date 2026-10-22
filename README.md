@@ -39,7 +39,7 @@ window.WORKSHOP_VIDEOS = {
 
 Supported sources: HTTPS MP4, YouTube links, and Vimeo links. Local MP4 files can also be stored in `assets/` and referenced as `assets/your-film.mp4`. The hero and story banner use the story video; the film cards use their respective video. Players open in an accessible dialog, provide native video controls or provider controls, and stop playback when closed. MP4 sources should use browser-compatible H.264/AAC encoding.
 
-The actual website could not be crawled because it returned an access-denied response in this environment. Official footage is pending. Until URLs are supplied, each video opens a clearly labelled film-preview cover; no unrelated video footage is substituted. Set the URLs and confirm the actual official footage before publishing a final production site.
+The actual website could not be crawled because it returned an access-denied response in this environment. The client-supplied YouTube film (P2qac7qd00o) is connected to both work and story sections, starting at 58 seconds. A separate work film can be configured later. YouTube playback remains subject to the video owner allowing embeds and viewer network access. Blank URLs fall back to a clearly labelled film-preview cover.
 
 ## Before launch
 

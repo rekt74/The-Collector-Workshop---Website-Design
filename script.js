@@ -19,7 +19,14 @@ function getEmbedURL(raw) {
   if (['youtube.com', 'm.youtube.com', 'youtu.be', 'youtube-nocookie.com'].includes(host)) {
     const id = host === 'youtu.be' ? url.pathname.split('/')[1] : url.searchParams.get('v') || url.pathname.split('/').filter(Boolean).pop();
     if (!/^[\w-]{11}$/.test(id || '')) throw new Error('Invalid YouTube video link.');
-    return { embed: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0` };
+    const time = url.searchParams.get('start') || url.searchParams.get('t') || '';
+    let start = 0;
+    if (/^\d+$/.test(time)) start = Number(time);
+    else {
+      const parts = time.match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/);
+      if (parts) start = Number(parts[1] || 0) * 3600 + Number(parts[2] || 0) * 60 + Number(parts[3] || 0);
+    }
+    return { embed: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0${start > 0 ? '&start=' + start : ''}` };
   }
   if (host === 'vimeo.com' || host === 'player.vimeo.com') {
     const match = url.pathname.match(/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?\/?$/);
@@ -43,6 +50,7 @@ document.querySelectorAll('.video-trigger').forEach(button => button.addEventLis
       const media = getEmbedURL(config.url);
       if (media.embed) {
         const frame = document.createElement('iframe'); frame.src = media.embed; frame.title = config.title; frame.allow = 'autoplay; fullscreen; picture-in-picture'; frame.allowFullscreen = true; frame.referrerPolicy = 'strict-origin-when-cross-origin'; stage.append(frame);
+        const directLink = document.createElement('a'); directLink.href = config.url; directLink.target = '_blank'; directLink.rel = 'noopener noreferrer'; directLink.className = 'text-link'; directLink.textContent = 'Open film in a new tab ↗'; message.append(directLink);
       } else {
         const video = document.createElement('video'); video.controls = true; video.playsInline = true; video.poster = config.poster; video.src = media.source; video.autoplay = true; stage.append(video);
         video.addEventListener('error', () => { message.textContent = 'This film is temporarily unavailable. Please try again later.'; });
